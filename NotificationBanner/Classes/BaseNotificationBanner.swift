@@ -51,7 +51,7 @@ public class BaseNotificationBanner: UIView {
     }
     
     /// The topmost label of the notification if a custom view is not desired
-    public internal(set) var titleLabel: MarqueeLabel?
+    public internal(set) var titleLabel: UILabel?
     
     /// The time before the notificaiton is automatically dismissed
     public var duration: TimeInterval = 5.0 {
@@ -445,7 +445,8 @@ public class BaseNotificationBanner: UIView {
         Updates the scrolling marquee label duration
     */
     internal func updateMarqueeLabelsDurations() {
-        titleLabel?.speed = .duration(CGFloat(duration - 3))
+        // SCRUFF - Removed since we're using a UILabel instead
+//        titleLabel?.speed = .duration(CGFloat(duration - 3))
     }
 }
 
