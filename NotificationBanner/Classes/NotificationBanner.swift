@@ -43,7 +43,7 @@ public class NotificationBanner: BaseNotificationBanner {
     public static let BannerObjectKey: String = "NotificationBannerObjectKey"
     
     /// The bottom most label of the notification if a subtitle is provided
-    public private(set) var subtitleLabel: MarqueeLabel?
+    public private(set) var subtitleLabel: UILabel?
     
     /// The view that is presented on the left side of the notification
     private var leftView: UIView?
@@ -84,10 +84,10 @@ public class NotificationBanner: BaseNotificationBanner {
         
         let labelsView = UIView()
         contentView.addSubview(labelsView)
-        
-        titleLabel = MarqueeLabel()
-        titleLabel!.type = .left
-        titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+
+        // SCRUFF - Changed to UILabel
+        titleLabel = UILabel()
+        titleLabel!.numberOfLines = 0
         titleLabel!.textColor = .white
         titleLabel!.text = title
         labelsView.addSubview(titleLabel!)
@@ -104,8 +104,8 @@ public class NotificationBanner: BaseNotificationBanner {
         }
         
         if let subtitle = subtitle {
-            subtitleLabel = MarqueeLabel()
-            subtitleLabel!.type = .left
+            // SCRUFF - Changed to UILabel
+            subtitleLabel = UILabel()
             subtitleLabel!.font = UIFont.systemFont(ofSize: 15.0)
             subtitleLabel!.numberOfLines = 1
             subtitleLabel!.textColor = .white
@@ -170,11 +170,6 @@ public class NotificationBanner: BaseNotificationBanner {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    internal override func updateMarqueeLabelsDurations() {
-        super.updateMarqueeLabelsDurations()
-        subtitleLabel?.speed = .duration(CGFloat(duration - 3))
     }
     
 }
