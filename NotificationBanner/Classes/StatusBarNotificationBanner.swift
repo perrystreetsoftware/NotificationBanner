@@ -43,9 +43,8 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(style: style, colors: colors)
 
-        titleLabel = MarqueeLabel()
-        titleLabel?.animationDelay = 2
-        titleLabel?.type = .leftRight
+        // SCRUFF - Changed to UILabel
+        titleLabel = UILabel()
         titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
         titleLabel!.textAlignment = .center
         titleLabel!.textColor = .white
