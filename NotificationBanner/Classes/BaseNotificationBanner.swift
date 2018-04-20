@@ -59,6 +59,9 @@ public class BaseNotificationBanner: UIView {
             updateMarqueeLabelsDurations()
         }
     }
+
+    // scruff added - time interval to animate out (we want ours to be faster than half a second!)
+    public var animateOutDuration: TimeInterval = 0.5
     
     /// If false, the banner will not be dismissed until the developer programatically dismisses it
     public var autoDismiss: Bool = true {
@@ -227,7 +230,7 @@ public class BaseNotificationBanner: UIView {
         NotificationCenter.default.post(name: NotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
         delegate?.notificationBannerWillDisappear(self)
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: self.animateOutDuration, animations: {
             self.frame = self.bannerPositionFrame.startFrame
         }) { (completed) in
             self.removeFromSuperview()
