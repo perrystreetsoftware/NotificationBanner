@@ -287,7 +287,8 @@ open class BaseNotificationBanner: UIView {
         }
     }
     
-    internal func updateBannerPositionFrames(appWindow window: UIWindow) {
+    internal func updateBannerPositionFrames() {
+        guard let window = appWindow else { return }
         bannerPositionFrame = BannerPositionFrame(
             bannerPosition: bannerPosition,
             bannerWidth: window.width,
@@ -358,7 +359,7 @@ open class BaseNotificationBanner: UIView {
 
         self.bannerPosition = bannerPosition
         createBannerConstraints(for: bannerPosition)
-        updateBannerPositionFrames(appWindow: appWindow)
+        updateBannerPositionFrames()
 
         NotificationCenter.default.removeObserver(
             self,
@@ -385,14 +386,14 @@ open class BaseNotificationBanner: UIView {
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
                 if statusBarShouldBeShown() {
-                    appWindow?.windowLevel = UIWindow.Level.normal
+                    appWindow.windowLevel = UIWindow.Level.normal
                 }
             } else {
-                appWindow?.addSubview(self)
+                appWindow.addSubview(self)
                 if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
-                    appWindow?.windowLevel = UIWindow.Level.normal
+                    appWindow.windowLevel = UIWindow.Level.normal
                 } else {
-                    appWindow?.windowLevel = UIWindow.Level.statusBar + 1
+                    appWindow.windowLevel = UIWindow.Level.statusBar + 1
                 }
             }
 
