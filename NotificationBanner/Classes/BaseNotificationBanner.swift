@@ -287,8 +287,7 @@ open class BaseNotificationBanner: UIView {
         }
     }
     
-    internal func updateBannerPositionFrames() {
-        guard let window = appWindow else { return }
+    internal func updateBannerPositionFrames(appWindow window: UIWindow) {
         bannerPositionFrame = BannerPositionFrame(
             bannerPosition: bannerPosition,
             bannerWidth: window.width,
@@ -353,9 +352,13 @@ open class BaseNotificationBanner: UIView {
             return
         }
 
+        guard let appWindow = appWindow else {
+            return
+        }
+
         self.bannerPosition = bannerPosition
         createBannerConstraints(for: bannerPosition)
-        updateBannerPositionFrames()
+        updateBannerPositionFrames(appWindow: appWindow)
 
         NotificationCenter.default.removeObserver(
             self,
