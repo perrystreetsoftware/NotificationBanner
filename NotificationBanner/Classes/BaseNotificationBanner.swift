@@ -268,14 +268,6 @@ open class BaseNotificationBanner: UIView {
             })
         }
     }
-    private func setWindowLevelSafely(_ level: UIWindow.Level) {
-        guard let window = appWindow,
-              window.windowLevel != level else { return }
-
-        DispatchQueue.main.async {
-            window.windowLevel = level
-        }
-    }
 
     internal func spacerViewHeight() -> CGFloat {
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
@@ -394,12 +386,12 @@ open class BaseNotificationBanner: UIView {
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
                 if statusBarShouldBeShown() {
-                    self.setWindowLevelSafely(.normal)
+//                    appWindow.windowLevel = UIWindow.Level.normal
                 }
             } else {
                 appWindow.addSubview(self)
                 if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
-                    self.setWindowLevelSafely(.normal)
+//                    appWindow.windowLevel = UIWindow.Level.normal
                 } else {
                     appWindow.windowLevel = UIWindow.Level.statusBar + 1
                 }
@@ -592,7 +584,7 @@ open class BaseNotificationBanner: UIView {
 
             self.bannerQueue.showNext(callback: { (isEmpty) in
                 if isEmpty || self.statusBarShouldBeShown() {
-                    self.setWindowLevelSafely(.normal)
+//                    self.appWindow?.windowLevel = UIWindow.Level.normal
                 }
             })
         }
